@@ -24,6 +24,7 @@ class MainWindow(QMainWindow):
         about_action = QAction("About", self)
         help_menu_item.addAction(about_action)
         about_action.setMenuRole(QAction.MenuRole.NoRole)
+        about_action.triggered.connect(self.about)
 
         search_bar = QAction(QIcon("icons/search.png"),"Search", self)
         search_menu_item.addAction(search_bar)
@@ -88,6 +89,22 @@ class MainWindow(QMainWindow):
     def delete(self):
         dialog = DeleteDialog()
         dialog.exec()
+
+    def about(self):
+        dialog = AboutDialog()
+        dialog.exec()
+
+
+class AboutDialog(QMessageBox):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("About")
+        self.setFixedWidth(300)
+        self.setFixedHeight(300)
+        content = """
+        This app was created during the course. You can add, edit and delete your student information with this map. Feel free to modify it...
+        """
+        self.setText(content)
 
 
 class EditDialog(QDialog):
